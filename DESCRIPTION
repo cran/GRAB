@@ -1,0 +1,50 @@
+Package: GRAB
+Type: Package
+Title: Genome-Wide Robust Analysis for Biobank Data (GRAB)
+Version: 0.2.1
+Date: 2025-08-01
+Authors@R: c(person(given = "Wenjian",
+                    family = "Bi",
+                    role = "aut"),
+             person(given = "Wei",
+                    family = "Zhou",
+                    role = "aut"),
+             person(given = "Rounak",
+                    family = "Dey",
+                    role = "aut"),
+             person(given = "Zhangchen",
+                    family = "Zhao",
+                    role = "aut"),
+             person(given = "Seunggeun",
+                    family = "Lee",
+                    role = "aut"),
+             person(given = "Woody",
+                    family = "Miao",
+                    role = "cre",
+                    email = "miaolin@pku.edu.cn"))
+Description: Provides a comprehensive suite of genome-wide association study (GWAS) methods
+    specifically designed for biobank-scale data. The package offers computationally efficient
+    and robust association tests for time-to-event traits (e.g., Bi et al. (2020) 
+    <doi:10.1016/j.ajhg.2020.06.003>), ordinal categorical traits (e.g., Bi et al. (2021) 
+    <doi:10.1016/j.ajhg.2021.03.019>), and longitudinal traits (Xu et al. (2025) 
+    <doi:10.1038/s41467-025-56669-1>). Additionally, it includes functions for 
+    simulating genotype and phenotype data to support research and method development.
+License: GPL (>= 2)
+Encoding: UTF-8
+Depends: R (>= 3.5.0)
+Imports: dplyr, data.table, mvtnorm, Matrix, RSQLite, lme4, ordinal,
+        survival, Rcpp, RcppParallel, igraph
+Suggests: dbplyr, optparse, tidyr, R.utils, SKAT
+LinkingTo: Rcpp, RcppArmadillo, RcppParallel, BH
+RoxygenNote: 7.3.2
+NeedsCompilation: yes
+Packaged: 2025-07-24 14:07:21 UTC; 苗林
+Author: Wenjian Bi [aut],
+  Wei Zhou [aut],
+  Rounak Dey [aut],
+  Zhangchen Zhao [aut],
+  Seunggeun Lee [aut],
+  Woody Miao [cre]
+Maintainer: Woody Miao <miaolin@pku.edu.cn>
+Repository: CRAN
+Date/Publication: 2025-07-25 16:30:20 UTC
