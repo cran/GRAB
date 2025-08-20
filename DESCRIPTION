@@ -1,8 +1,8 @@
 Package: GRAB
 Type: Package
 Title: Genome-Wide Robust Analysis for Biobank Data (GRAB)
-Version: 0.2.2
-Date: 2025-08-01
+Version: 0.2.3
+Date: 2025-08-25
 Authors@R: c(person(given = "Wenjian",
                     family = "Bi",
                     role = "aut"),
@@ -38,7 +38,7 @@ Suggests: dbplyr, optparse, tidyr, R.utils, SKAT
 LinkingTo: Rcpp, RcppArmadillo, RcppParallel, BH
 RoxygenNote: 7.3.2
 NeedsCompilation: yes
-Packaged: 2025-07-29 07:41:10 UTC; Woody
+Packaged: 2025-08-19 07:04:11 UTC; Woody
 Author: Wenjian Bi [aut],
   Wei Zhou [aut],
   Rounak Dey [aut],
@@ -47,4 +47,4 @@ Author: Wenjian Bi [aut],
   Woody Miao [cre]
 Maintainer: Woody Miao <miaolin@pku.edu.cn>
 Repository: CRAN
-Date/Publication: 2025-07-29 09:20:38 UTC
+Date/Publication: 2025-08-20 02:30:02 UTC
