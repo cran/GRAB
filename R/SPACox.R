@@ -150,7 +150,7 @@ checkControl.NullModel.SPACox <- function(traitType, GenoFile, SparseGRMFile, co
 #'     \item{cumul}{CGF grid as a matrix with columns t, K0, K1, K2.}
 #'     \item{tX}{Transpose of design matrix with intercept (p+1 x n).}
 #'     \item{yVec}{Status/event indicator or residual-based response.}
-#'     \item{X.invXX}{Projection helper: X %*% solve(t(X) %*% X).}
+#'     \item{X.invXX}{Projection helper: X \%*\% solve(t(X) \%*\% X).}
 #'     \item{subjData}{Character vector of subject IDs.}
 #'   }
 #'

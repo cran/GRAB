@@ -7,45 +7,45 @@
 GRAB.SPAmix()
 }
 \description{
-SPAmix performs retrospective single-variant association tests using genotypes and
-residuals from null models of any complex trait in large-scale biobanks. It extends
-SPACox to support complex population structures, such as admixed ancestry and
+SPAmix performs retrospective single-variant association tests using genotypes and 
+residuals from null models of any complex trait in large-scale biobanks. It extends 
+SPACox to support complex population structures, such as admixed ancestry and 
 multiple populations, but does not account for sample relatedness.
 }
 \details{
 \strong{Additional Control Parameters for GRAB.NullModel()}:
 \itemize{
-\item \code{PC_columns} (character, required): Comma-separated column names
-of principal components (e.g., "PC1,PC2").
-\item \code{OutlierRatio} (numeric, default: 1.5): IQR multiplier for outlier detection.
-Outliers are defined as values outside [Q1 - r\emph{IQR, Q3 + r}IQR].
+  \item \code{PC_columns} (character, required): Comma-separated column names
+     of principal components (e.g., "PC1,PC2").
+  \item \code{OutlierRatio} (numeric, default: 1.5): IQR multiplier for outlier detection.
+     Outliers are defined as values outside \[Q1 - r*IQR, Q3 + r*IQR\].
 }
 
 \strong{Method-specific elements in the \code{SPAmix_NULL_Model} object returned by \code{GRAB.NullModel()}:}:
 \itemize{
-\item \code{resid}: Residuals from mixed model (matrix or "Residual" class).
-\item \code{yVec}: Phenotype vector (numeric or "Residual" class).
-\item \code{PCs}: Principal components for dimension reduction (matrix).
-\item \code{nPheno}: Number of phenotypes analyzed (integer).
-\item \code{outLierList}: List identifying outlier subjects for SPA adjustment.
+  \item \code{resid}: Residuals from mixed model (matrix or "Residual" class).
+  \item \code{yVec}: Phenotype vector (numeric or "Residual" class).
+  \item \code{PCs}: Principal components for dimension reduction (matrix).
+  \item \code{nPheno}: Number of phenotypes analyzed (integer).
+  \item \code{outLierList}: List identifying outlier subjects for SPA adjustment.
 }
 
 \strong{Additional Control Parameters for GRAB.Marker()}:
 \itemize{
-\item \code{dosage_option} (character, default: "rounding_first"):
-Dosage handling option. Must be either "rounding_first" or "rounding_last".
+  \item \code{dosage_option} (character, default: "rounding_first"):
+   Dosage handling option. Must be either "rounding_first" or "rounding_last".
 }
 
 \strong{Output file columns}:
 \describe{
-\item{Pheno}{Phenotype identifier (for multi-trait analysis).}
-\item{Marker}{Marker identifier (rsID or CHR:POS:REF:ALT).}
-\item{Info}{Marker information in format CHR:POS:REF:ALT.}
-\item{AltFreq}{Alternative allele frequency in the sample.}
-\item{AltCounts}{Total count of alternative alleles.}
-\item{MissingRate}{Proportion of missing genotypes.}
-\item{Pvalue}{P-value from the score test.}
-\item{zScore}{Z-score from the score test.}
+  \item{Pheno}{Phenotype identifier (for multi-trait analysis).}
+  \item{Marker}{Marker identifier (rsID or CHR:POS:REF:ALT).}
+  \item{Info}{Marker information in format CHR:POS:REF:ALT.}
+  \item{AltFreq}{Alternative allele frequency in the sample.}
+  \item{AltCounts}{Total count of alternative alleles.}
+  \item{MissingRate}{Proportion of missing genotypes.}
+  \item{Pvalue}{P-value from the score test.}
+  \item{zScore}{Z-score from the score test.}
 }
 }
 \examples{
@@ -103,6 +103,6 @@ head(data.table::fread(OutputFile))
 
 }
 \references{
-Ma et al. (2025). SPAmix: a scalable, accurate, and universal analysis framework for large‑scale
+Ma et al. (2025). SPAmix: a scalable, accurate, and universal analysis framework for large‑scale 
 genetic association studies in admixed populations. \doi{10.1186/s13059-025-03827-9}
 }

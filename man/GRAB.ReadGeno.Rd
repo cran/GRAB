@@ -15,14 +15,14 @@ GRAB.ReadGeno(
 \arguments{
 \item{GenoFile}{Path to genotype file. Supported formats determined by extension:
 \itemize{
-\item PLINK: "prefix.bed" (binary format)
-\item BGEN: "prefix.bgen" (version 1.2 with 8-bit compression)
+  \item PLINK: "prefix.bed" (binary format)
+  \item BGEN: "prefix.bgen" (version 1.2 with 8-bit compression)
 }}
 
 \item{GenoFileIndex}{Associated index files for the genotype file:
 \itemize{
-\item PLINK: c("prefix.bim", "prefix.fam") (auto-detected if NULL)
-\item BGEN: "prefix.bgen.bgi" or c("prefix.bgen.bgi", "prefix.sample")
+  \item PLINK: c("prefix.bim", "prefix.fam") (auto-detected if NULL)
+  \item BGEN: "prefix.bgen.bgi" or c("prefix.bgen.bgi", "prefix.sample")
 }}
 
 \item{SampleIDs}{Character vector of sample IDs to extract. If NULL,
@@ -30,23 +30,23 @@ extracts all samples.}
 
 \item{control}{List of control parameters with the following options:
 \itemize{
-\item \code{imputeMethod}: Imputation method for genotype data.
-Options: "none" (default), "mean" (2 times allele frequency).
-"bestguess" (round mean to the nearest integer, 0, 1, or 2).
-\item \code{AlleleOrder}: Allele order in genotype file. Options: "ref-first",
-"alt-first", or NULL (default: "alt-first" for BGEN, "ref-first" for PLINK).
-\item \strong{Marker Selection:}
-\itemize{
-\item \code{AllMarkers}: Set to TRUE (default) to analyze all markers.
-Automatically set to FALSE if any include/exclude files are provided.
-\item \code{IDsToIncludeFile}: Path to file with marker IDs to include.
-\item \code{RangesToIncludeFile}: Path to file with genomic ranges to include.
-Can be used with IDsToIncludeFile (union will be used).
-\item \code{IDsToExcludeFile}: Path to file with marker IDs to exclude.
-\item \code{RangesToExcludeFile}: Path to file with genomic ranges to exclude.
-Can be used with IDsToExcludeFile (union will be excluded).
-\item Note: Cannot use both include and exclude files simultaneously.
-}
+  \item \code{imputeMethod}: Imputation method for genotype data.
+    Options: "none" (default), "mean" (2 times allele frequency).
+    "bestguess" (round mean to the nearest integer, 0, 1, or 2).
+  \item \code{AlleleOrder}: Allele order in genotype file. Options: "ref-first",
+    "alt-first", or NULL (default: "alt-first" for BGEN, "ref-first" for PLINK).
+  \item \strong{Marker Selection:}
+  \itemize{
+    \item \code{AllMarkers}: Set to TRUE (default) to analyze all markers.
+      Automatically set to FALSE if any include/exclude files are provided.
+    \item \code{IDsToIncludeFile}: Path to file with marker IDs to include.
+    \item \code{RangesToIncludeFile}: Path to file with genomic ranges to include.
+      Can be used with IDsToIncludeFile (union will be used).
+    \item \code{IDsToExcludeFile}: Path to file with marker IDs to exclude.
+    \item \code{RangesToExcludeFile}: Path to file with genomic ranges to exclude.
+      Can be used with IDsToExcludeFile (union will be excluded).
+    \item Note: Cannot use both include and exclude files simultaneously.
+  }
 }}
 
 \item{sparse}{Logical indicating whether to return sparse genotype matrix
@@ -55,8 +55,8 @@ Can be used with IDsToExcludeFile (union will be excluded).
 \value{
 List containing:
 \describe{
-\item{GenoMat}{Genotype matrix (samples × markers) with values 0, 1, 2, or NA.}
-\item{markerInfo}{Data frame with columns CHROM, POS, ID, REF, ALT.}
+  \item{GenoMat}{Genotype matrix (samples × markers) with values 0, 1, 2, or NA.}
+  \item{markerInfo}{Data frame with columns CHROM, POS, ID, REF, ALT.}
 }
 }
 \description{
@@ -67,10 +67,10 @@ imputation methods for missing genotypes.
 \details{
 \strong{File Format Support:}
 
-\emph{PLINK Format:} Binary BED/BIM/FAM files. See
+*PLINK Format:* Binary BED/BIM/FAM files. See
 \url{https://www.cog-genomics.org/plink/2.0/} for specifications.
 
-\emph{BGEN Format:} Version 1.2 with 8-bit compression. See
+*BGEN Format:* Version 1.2 with 8-bit compression. See
 \url{https://www.well.ox.ac.uk/~gav/bgen_format/spec/v1.2.html} for details.
 Requires BGI index file created with bgenix tool.
 }

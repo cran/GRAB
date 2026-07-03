@@ -34,8 +34,8 @@ See \code{Details} for pedigree structures.}
 \value{
 List containing:
 \describe{
-\item{GenoMat}{Numeric genotype matrix (subjects × markers) with values 0, 1, 2.}
-\item{markerInfo}{Data frame with marker IDs and MAF values.}
+  \item{GenoMat}{Numeric genotype matrix (subjects × markers) with values 0, 1, 2.}
+  \item{markerInfo}{Data frame with marker IDs and MAF values.}
 }
 }
 \description{
@@ -47,9 +47,9 @@ Genotypes are simulated under Hardy-Weinberg equilibrium with MAF ~ Uniform(MinM
 
 \strong{Family Structures:}
 \itemize{
-\item \strong{4-members}: 1+2→3+4 (parents 1,2 → offspring 3,4)
-\item \strong{10-members}: 1+2→5+6, 3+5→7+8, 4+6→9+10
-\item \strong{20-members}: Complex multi-generational pedigree with 20 members
+  \item \strong{4-members}: 1+2→3+4 (parents 1,2 → offspring 3,4)
+  \item \strong{10-members}: 1+2→5+6, 3+5→7+8, 4+6→9+10
+  \item \strong{20-members}: Complex multi-generational pedigree with 20 members
 }
 
 Total subjects: \code{nSub + nFam × family_size}

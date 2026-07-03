@@ -266,7 +266,11 @@ fitNullModel.SPAmix <- function(
     while (length(posOutlier) == 0) {
       r.outlier <- r.outlier * 0.8
       cutoff <- c(q25 - r.outlier * IQR, q75 + r.outlier * IQR)
-      posOutlier <- which(mresid < cutoff[1] | mresid > cutoff[2])
+      # Re-test against the current phenotype column mresid.temp, not the full
+      # residual matrix mresid. Using mresid here returned linear indices across
+      # the whole matrix (mixing phenotypes and exceeding the per-column length),
+      # yielding a wrong outlier partition in the multi-phenotype path.
+      posOutlier <- which(mresid.temp < cutoff[1] | mresid.temp > cutoff[2])
       .message("Outlier ratio adjusted to: %.2f (%d outliers)", r.outlier, length(posOutlier))
     }
 

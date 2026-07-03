@@ -14,81 +14,83 @@ and effectively controls type I error rates while maintaining statistical power.
 \details{
 For single-variant tests, see \code{\link{GRAB.POLMM}}.
 
+
+
 See \code{\link{GRAB.POLMM}} for details on step 1.
 
 \strong{Additional Control Parameters for GRAB.Region() with POLMM}:
 \itemize{
-\item \code{showInfo} (logical, default: FALSE): Whether to print PCG iteration information for debugging.
-\item \code{tolPCG} (numeric, default: 0.001): Tolerance for PCG in region testing.
-\item \code{maxiterPCG} (integer, default: 100): Maximum PCG iterations in region testing.
+  \item \code{showInfo} (logical, default: FALSE): Whether to print PCG iteration information for debugging.
+  \item \code{tolPCG} (numeric, default: 0.001): Tolerance for PCG in region testing.
+  \item \code{maxiterPCG} (integer, default: 100): Maximum PCG iterations in region testing.
 }
 
 \strong{Results are saved to four files}:
 \enumerate{
-\item \code{OutputFile}: Region-based test results (SKAT-O, SKAT, Burden p-values).
-\item \code{paste0(OutputFile, ".markerInfo")}: Marker-level results for rare variants
-(MAC >= \code{min_mac_region}) included in region tests.
-\item \code{paste0(OutputFile, ".otherMarkerInfo")}: Information for excluded markers
-(ultra-rare variants or failed QC).
-\item \code{paste0(OutputFile, ".infoBurdenNoWeight")}: Summary statistics for burden
-tests without weights.
+  \item \code{OutputFile}: Region-based test results (SKAT-O, SKAT, Burden p-values).
+  \item \code{paste0(OutputFile, ".markerInfo")}: Marker-level results for rare variants
+    (MAC >= \code{min_mac_region}) included in region tests.
+  \item \code{paste0(OutputFile, ".otherMarkerInfo")}: Information for excluded markers
+    (ultra-rare variants or failed QC).
+  \item \code{paste0(OutputFile, ".infoBurdenNoWeight")}: Summary statistics for burden
+    tests without weights.
 }
 
 \strong{Region-level results} (\code{OutputFile}) columns:
 \describe{
-\item{Region}{Region identifier from \code{GroupFile}.}
-\item{nMarkers}{Number of rare variants with MAF < cutoff and MAC >= \code{min_mac_region}.}
-\item{nMarkersURV}{Number of ultra-rare variants with MAC < \code{min_mac_region}.}
-\item{Anno.Type}{Annotation type from \code{GroupFile}.}
-\item{MaxMAF.Cutoff}{Maximum MAF cutoff used for variant selection.}
-\item{pval.SKATO}{SKAT-O test p-value.}
-\item{pval.SKAT}{SKAT test p-value.}
-\item{pval.Burden}{Burden test p-value.}
+  \item{Region}{Region identifier from \code{GroupFile}.}
+  \item{nMarkers}{Number of rare variants with MAF < cutoff and MAC >= \code{min_mac_region}.}
+  \item{nMarkersURV}{Number of ultra-rare variants with MAC < \code{min_mac_region}.}
+  \item{Anno.Type}{Annotation type from \code{GroupFile}.}
+  \item{MaxMAF.Cutoff}{Maximum MAF cutoff used for variant selection.}
+  \item{pval.SKATO}{SKAT-O test p-value.}
+  \item{pval.SKAT}{SKAT test p-value.}
+  \item{pval.Burden}{Burden test p-value.}
 }
 
 \strong{Marker-level results} (\code{paste0(OutputFile, ".markerInfo")}) columns:
 \describe{
-\item{Region}{Region identifier.}
-\item{ID}{Marker identifier.}
-\item{Info}{Marker information in format CHR:POS:REF:ALT.}
-\item{Anno}{Annotation from \code{GroupFile}.}
-\item{AltFreq}{Alternative allele frequency.}
-\item{MAC}{Minor allele count.}
-\item{MAF}{Minor allele frequency.}
-\item{MissingRate}{Proportion of missing genotypes.}
-\item{IndicatorVec}{Marker status indicator (1 = rare variant included, 3 = ultra-rare variant included).}
-\item{StatVec}{Score test statistic.}
-\item{altBetaVec}{Effect size estimate.}
-\item{seBetaVec}{Standard error of effect size estimate.}
-\item{pval0Vec}{Unadjusted p-value.}
-\item{pval1Vec}{SPA-adjusted p-value.}
-\item{posRow}{Position row index.}
+  \item{Region}{Region identifier.}
+  \item{ID}{Marker identifier.}
+  \item{Info}{Marker information in format CHR:POS:REF:ALT.}
+  \item{Anno}{Annotation from \code{GroupFile}.}
+  \item{AltFreq}{Alternative allele frequency.}
+  \item{MAC}{Minor allele count.}
+  \item{MAF}{Minor allele frequency.}
+  \item{MissingRate}{Proportion of missing genotypes.}
+  \item{IndicatorVec}{Marker status indicator (1 = rare variant included, 3 = ultra-rare variant included).}
+  \item{StatVec}{Score test statistic.}
+  \item{altBetaVec}{Effect size estimate.}
+  \item{seBetaVec}{Standard error of effect size estimate.}
+  \item{pval0Vec}{Unadjusted p-value.}
+  \item{pval1Vec}{SPA-adjusted p-value.}
+  \item{posRow}{Position row index.}
 }
 
 \strong{Other marker info} (\code{paste0(OutputFile, ".otherMarkerInfo")}) columns:
 \describe{
-\item{ID}{Marker identifier.}
-\item{Annos}{Annotation from \code{GroupFile}.}
-\item{Region}{Region identifier.}
-\item{Info}{Marker information in format CHR:POS:REF:ALT.}
-\item{Anno}{Annotation category.}
-\item{AltFreq}{Alternative allele frequency.}
-\item{MAC}{Minor allele count.}
-\item{MAF}{Minor allele frequency.}
-\item{MissingRate}{Proportion of missing genotypes.}
-\item{IndicatorVec}{Status indicator (0 or 2 for excluded markers).}
+  \item{ID}{Marker identifier.}
+  \item{Annos}{Annotation from \code{GroupFile}.}
+  \item{Region}{Region identifier.}
+  \item{Info}{Marker information in format CHR:POS:REF:ALT.}
+  \item{Anno}{Annotation category.}
+  \item{AltFreq}{Alternative allele frequency.}
+  \item{MAC}{Minor allele count.}
+  \item{MAF}{Minor allele frequency.}
+  \item{MissingRate}{Proportion of missing genotypes.}
+  \item{IndicatorVec}{Status indicator (0 or 2 for excluded markers).}
 }
 
 \strong{Burden test summary} (\code{paste0(OutputFile, ".infoBurdenNoWeight")}) columns:
 \describe{
-\item{region}{Region identifier.}
-\item{anno}{Annotation type.}
-\item{max_maf}{Maximum MAF cutoff.}
-\item{sum}{Sum of genotypes.}
-\item{Stat}{Score test statistic.}
-\item{beta}{Effect size estimate.}
-\item{se.beta}{Standard error of effect size estimate.}
-\item{pvalue}{P-value for burden test.}
+  \item{region}{Region identifier.}
+  \item{anno}{Annotation type.}
+  \item{max_maf}{Maximum MAF cutoff.}
+  \item{sum}{Sum of genotypes.}
+  \item{Stat}{Score test statistic.}
+  \item{beta}{Effect size estimate.}
+  \item{se.beta}{Standard error of effect size estimate.}
+  \item{pvalue}{P-value for burden test.}
 }
 }
 \examples{
@@ -127,6 +129,6 @@ head(data.table::fread(paste0(OutputFile, ".infoBurdenNoWeight")))
 
 }
 \references{
-Bi et al. (2023). Scalable mixed model methods for set-based association studies on large-scale
+Bi et al. (2023). Scalable mixed model methods for set-based association studies on large-scale 
 categorical data analysis and its application to exome-sequencing data in UK Biobank. \doi{10.1016/j.ajhg.2023.03.010}
 }

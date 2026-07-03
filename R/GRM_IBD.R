@@ -91,7 +91,10 @@ getTempFilesFullGRM <- function(
     }
 
     subjFile <- paste0(tempDir, "/subjData.txt")
-    famData <- read.table(famFile)
+    # colClasses = "character" preserves IDs that are all digits with leading
+    # zeros (e.g. "00001234"); the default type.convert would coerce them to
+    # integer and strip the zeros, breaking the match() against subjData below.
+    famData <- read.table(famFile, colClasses = "character")
     posSubj <- match(subjData, famData$V2, 0)
     if (any(posSubj == 0)) {
       stop("All subjects in 'subjData' should be in IID column of 'famFile'.")
@@ -225,7 +228,11 @@ getSparseGRM <- function(
     BinFile <- paste0(tempFile, part_suffix, ".grm.bin")
 
     ## read in the three files
-    IDs <- read.table(IDFile, stringsAsFactors = FALSE)
+    # colClasses = "character" preserves all-digit IDs with leading zeros
+    # (e.g. "00001234"). Note that stringsAsFactors = FALSE is insufficient: it
+    # only governs columns that remain character, whereas type.convert has
+    # already coerced an all-digit column to integer, discarding the zeros.
+    IDs <- read.table(IDFile, colClasses = "character")
     ID <- IDs$V2
     AllIDs <- c(AllIDs, ID)
     n1 <- n0 + length(ID)
@@ -323,10 +330,15 @@ getPairwiseIBD <- function(
   }
 
   # read all genotype and pass to QC.
-  GenoInfoMat <- data.table::fread(frqFile)
+  # colClasses keeps SNP IDs as character (preserving leading zeros) while
+  # leaving MAF and the other columns to type inference.
+  GenoInfoMat <- data.table::fread(frqFile, colClasses = list(character = "SNP"))
 
   # read in the Sparse GRM.
-  SparseGRMData <- data.table::fread(SparseGRMFile)
+  # colClasses forces the ID columns to character so all-digit IDs retain their
+  # leading zeros; the Value column is left to type inference. The as.character
+  # calls below are then redundant, but are kept as harmless no-ops.
+  SparseGRMData <- data.table::fread(SparseGRMFile, colClasses = list(character = c("ID1", "ID2")))
   SparseGRMData$ID1 <- as.character(SparseGRMData$ID1)
   SparseGRMData$ID2 <- as.character(SparseGRMData$ID2)
 
@@ -350,8 +362,11 @@ getPairwiseIBD <- function(
     )
   } else {
     # read in the bim and fam data.
-    bim <- data.table::fread(bimFile)
-    fam <- data.table::fread(famFile)
+    # Keep the SNP ID column (bim V2) and the FID/IID columns (fam V1/V2) as
+    # character so all-digit IDs retain leading zeros; chromosome and position
+    # in the bim file are left to type inference.
+    bim <- data.table::fread(bimFile, colClasses = list(character = "V2"))
+    fam <- data.table::fread(famFile, colClasses = list(character = c("V1", "V2")))
 
     # check SNPs of frqFile and subjects of SparseGRMFile correspond to PlinkFile.
     if (any(GenoInfoMat$SNP != bim$V2)) {

@@ -392,7 +392,9 @@ TestforBatchEffect <- function(
   .message("Testing for batch effect ...")
 
   if (!is.null(SparseGRMFile)) {
-    sparseGRM <- data.table::fread(SparseGRMFile)
+    # colClasses keeps the ID columns as character so all-digit IDs retain
+    # leading zeros; ID1/ID2 are later used to index the named vector w1.
+    sparseGRM <- data.table::fread(SparseGRMFile, colClasses = list(character = c("ID1", "ID2")))
   } else {
     sparseGRM <- NULL
   }
@@ -411,7 +413,9 @@ TestforBatchEffect <- function(
 
   # step1: quality control--------------------------------------------------------
   ## reference genoInfo----------------------------------------------------------
-  refGenoInfo <- data.table::fread(RefAfFile) %>% as_tibble()
+  # Keep the SNP ID column as character so all-digit marker IDs retain leading
+  # zeros; RefAfFile is merged with the sample genoInfo by "ID".
+  refGenoInfo <- data.table::fread(RefAfFile, colClasses = list(character = "ID")) %>% as_tibble()
 
   # check if there are 7 columns in RefAfFile
   for (colname in c("CHROM", "POS", "ID", "REF", "ALT", "AF_ref", "AN_ref")) {

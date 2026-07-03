@@ -120,8 +120,9 @@ GRAB.NullModel <- function(
     if (length(subjData) != nrow(data)) {
       stop("Length of 'subjData' (", length(subjData), ") must match number of rows in 'data' (", nrow(data), ").")
     }
-    if (!is.character(subjData) && !is.numeric(subjData)) {
-      stop("Argument 'subjData' should be a character or numeric vector of subject IDs.")
+    if (!is.character(subjData) && !is.numeric(subjData) &&
+          !inherits(subjData, "integer64")) {
+      stop("Argument 'subjData' should be a character, numeric, or integer64 vector of subject IDs.")
     }
   }
 
@@ -168,8 +169,9 @@ GRAB.NullModel <- function(
   # Extract and further validate subjData
   if (!is.null(subjIDcol)) {
     subjData <- data[[subjIDcol]]
-    if (!is.character(subjData) && !is.numeric(subjData)) {
-      stop("Column '", subjIDcol, "' should contain character or numeric subject IDs.")
+    if (!is.character(subjData) && !is.numeric(subjData) &&
+          !inherits(subjData, "integer64")) {
+      stop("Column '", subjIDcol, "' should contain character, numeric, or integer64 subject IDs.")
     }
   }
 
@@ -210,8 +212,21 @@ GRAB.NullModel <- function(
 
   # ========== Extract and validate designMat, response, subjData ==========
 
-  # Extract designMat
-  designMat <- as.matrix(as.data.frame(data)[, covariateVars, drop = FALSE])
+  # Extract designMat.
+  # Build the covariate design matrix numerically. as.matrix() would coerce the
+  # whole matrix to character whenever any covariate is a factor/character column
+  # (e.g. a factor-coded Sex), and a character design matrix then breaks the
+  # downstream numeric model fitting (ordinal::clm and the C++ Cova). model.matrix()
+  # dummy-codes factors, keeps every row aligned with 'subjData' (na.pass preserves
+  # NA rows), and the intercept column is dropped because each fitter adds its own.
+  if (length(covariateVars) == 0) {
+    designMat <- matrix(numeric(0), nrow = nrow(data), ncol = 0)
+  } else {
+    covDF <- as.data.frame(data)[, covariateVars, drop = FALSE]
+    mfCova <- stats::model.frame(~ ., data = covDF, na.action = stats::na.pass)
+    mmCova <- stats::model.matrix(stats::terms(mfCova), mfCova)
+    designMat <- mmCova[, colnames(mmCova) != "(Intercept)", drop = FALSE]
+  }
 
   # Extract response
   LeftInFormula <- deparse(formula[[2]])                       # character string

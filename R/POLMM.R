@@ -362,7 +362,9 @@ fitNullModel.POLMM <- function(
   flagSparseGRM <- optionGRM == "SparseGRM"
 
   if (flagSparseGRM) {
-    SparseGRM <- data.table::fread(SparseGRMFile)
+    # colClasses keeps the ID columns as character so all-digit IDs retain
+    # leading zeros; updateSparseGRM matches them against subjData via match().
+    SparseGRM <- data.table::fread(SparseGRMFile, colClasses = list(character = c("ID1", "ID2")))
     KinMatListR <- updateSparseGRM(as.data.frame(SparseGRM), subjData)
     setSparseGRMInCPP(t_KinMatListR = KinMatListR)         # C++ backend setup
   } else {
@@ -531,7 +533,9 @@ setRegion.POLMM <- function(
   .message("Using sparse GRM for POLMM-GENE analysis")
 
   # ---- BEGIN inlined: setSparseGRMInStep2 ----
-  SparseGRM <- data.table::fread(SparseGRMFile)
+  # colClasses keeps the ID columns as character so all-digit IDs retain
+  # leading zeros; updateSparseGRM matches them against objNull$subjData.
+  SparseGRM <- data.table::fread(SparseGRMFile, colClasses = list(character = c("ID1", "ID2")))
   SparseGRM <- as.data.frame(SparseGRM)
   KinMatListR <- updateSparseGRM(SparseGRM, objNull$subjData)
   setSparseGRMInCPP(

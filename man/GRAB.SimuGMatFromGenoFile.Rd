@@ -33,9 +33,9 @@ See Details for pedigree structures.}
 \value{
 List containing:
 \describe{
-\item{GenoMat}{Simulated genotype matrix (subjects × variants).}
-\item{SubjIDs}{Subject identifiers for simulated samples.}
-\item{markerInfo}{Variant information from input file.}
+  \item{GenoMat}{Simulated genotype matrix (subjects × variants).}
+  \item{SubjIDs}{Subject identifiers for simulated samples.}
+  \item{markerInfo}{Variant information from input file.}
 }
 }
 \description{
@@ -50,16 +50,14 @@ through Mendelian inheritance.
 
 \strong{Note}: When simulating related subjects, alleles are randomly assigned to
 haplotypes during the phasing process.
-\subsection{Family Structures:}{
-\itemize{
-\item \strong{4-members}: Total subjects = nSub + 4×nFam. Structure: 1+2→3+4
-\item \strong{10-members}: Total subjects = nSub + 10×nFam.
-Structure: 1+2→5+6, 3+5→7+8, 4+6→9+10
-\item \strong{20-members}: Total subjects = nSub + 20×nFam.
-Structure: 1+2→9+10, 3+9→11+12, 4+10→13+14, 5+11→15+16,
-6+12→17, 7+13→18, 8+14→19+20
-}
-}
+
+## Family Structures:
+- \strong{4-members}: Total subjects = nSub + 4×nFam. Structure: 1+2→3+4
+- \strong{10-members}: Total subjects = nSub + 10×nFam.
+  Structure: 1+2→5+6, 3+5→7+8, 4+6→9+10
+- \strong{20-members}: Total subjects = nSub + 20×nFam.
+  Structure: 1+2→9+10, 3+9→11+12, 4+10→13+14, 5+11→15+16,
+  6+12→17, 7+13→18, 8+14→19+20
 }
 \examples{
 nFam <- 50

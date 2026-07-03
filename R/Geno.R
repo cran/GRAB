@@ -408,7 +408,9 @@ setGenoInput <- function(
 
     # Read BIM file
     .message("Reading bim file: %s", basename(bimFile))
-    markerInfo <- data.table::fread(bimFile, header = FALSE)
+    # Keep the SNP ID column (V2) as character so all-digit marker IDs retain
+    # leading zeros; chromosome and base-pair position are left numeric.
+    markerInfo <- data.table::fread(bimFile, header = FALSE, colClasses = list(character = "V2"))
     markerInfo <- as.data.frame(markerInfo)
 
     if (ncol(markerInfo) != 6) {
@@ -428,7 +430,9 @@ setGenoInput <- function(
 
     # Read FAM file
     .message("Reading fam file: %s", basename(famFile))
-    sampleInfo <- data.table::fread(famFile, header = FALSE)
+    # Keep FID (V1) and IID (V2) as character so all-digit sample IDs retain
+    # leading zeros, otherwise updateSampleIDs() would fail to match SampleIDs.
+    sampleInfo <- data.table::fread(famFile, header = FALSE, colClasses = list(character = c("V1", "V2")))
 
     if (ncol(sampleInfo) != 6) {
       stop("fam file should include 6 columns seperated by space or '\t'.")
@@ -477,7 +481,9 @@ setGenoInput <- function(
       # Sample file provided, read sample IDs from sample file
       sampleFile <- GenoFileIndex[2]
       .message("Reading sample file: %s", basename(sampleFile))
-      sampleData <- data.table::fread(sampleFile, header = TRUE)
+      # Keep the BGEN sample ID columns as character so all-digit sample IDs
+      # retain leading zeros.
+      sampleData <- data.table::fread(sampleFile, header = TRUE, colClasses = list(character = c("ID_1", "ID_2")))
       if (ncol(sampleData) < 4) stop("Column number of sample file should be >= 4.")
 
       expected_colnames <- c("ID_1", "ID_2", "missing", "sex")

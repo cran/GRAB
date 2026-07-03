@@ -25,19 +25,19 @@ decomposition (see \code{checkControl.SPAGRM.NullModel}).}
 }
 \value{
 A list of class \code{"SPAGRM_NULL_Model"} with elements:
-\describe{
-\item{Resid}{Numeric vector of residuals used in analysis.}
-\item{subjData}{Character vector of subject IDs (length = N).}
-\item{N}{Number of subjects.}
-\item{Resid.unrelated.outliers}{Residuals of unrelated outlier subjects.}
-\item{R_GRM_R}{Sum of quadratic form Resid' * GRM * Resid for all subjects.}
-\item{R_GRM_R_TwoSubjOutlier}{Aggregate contribution from two-subject outlier families.}
-\item{sum_R_nonOutlier}{Sum of residuals for non-outlier unrelated subjects.}
-\item{R_GRM_R_nonOutlier}{Quadratic form contribution for non-outlier unrelated subjects.}
-\item{TwoSubj_list}{List with per two-member family residual/Rho info.}
-\item{ThreeSubj_list}{List with Chow–Liu tree structures and standardized scores for larger families.}
-\item{MAF_interval}{Vector of MAF breakpoints used in tree construction.}
-}
+  \describe{
+    \item{Resid}{Numeric vector of residuals used in analysis.}
+    \item{subjData}{Character vector of subject IDs (length = N).}
+    \item{N}{Number of subjects.}
+    \item{Resid.unrelated.outliers}{Residuals of unrelated outlier subjects.}
+    \item{R_GRM_R}{Sum of quadratic form Resid' * GRM * Resid for all subjects.}
+    \item{R_GRM_R_TwoSubjOutlier}{Aggregate contribution from two-subject outlier families.}
+    \item{sum_R_nonOutlier}{Sum of residuals for non-outlier unrelated subjects.}
+    \item{R_GRM_R_nonOutlier}{Quadratic form contribution for non-outlier unrelated subjects.}
+    \item{TwoSubj_list}{List with per two-member family residual/Rho info.}
+    \item{ThreeSubj_list}{List with Chow–Liu tree structures and standardized scores for larger families.}
+    \item{MAF_interval}{Vector of MAF breakpoints used in tree construction.}
+  }
 }
 \description{
 Builds the SPAGRM null model object using subject residuals, sparse GRM,

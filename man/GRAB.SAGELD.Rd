@@ -12,11 +12,38 @@ No return value, called for side effects (prints information about the SAGELD me
 \description{
 SAGELD method is Scalable and Accurate algorithm for Gene-Environment
 interaction analysis using Longitudinal Data for related samples in a
-large-scale biobank. SAGELD extended SPA\if{html}{\out{<sub>}}GRM\if{html}{\out{</sub>}} to support
+large-scale biobank. SAGELD extended SPA<sub>GRM</sub> to support
 gene-environment interaction analysis.
 }
 \details{
 Additional list of \code{control} in \code{SAGELD.NullModel()} function.
 
 Additional list of \code{control} in \code{GRAB.Marker()} function.
+}
+\examples{
+LongDataFile <- system.file("extdata", "simuLongPHENO.txt", package = "GRAB")
+ResidMatFile <- system.file("extdata", "ResidMat.txt", package = "GRAB")
+SparseGRMFile <- system.file("extdata", "SparseGRM.txt", package = "GRAB")
+PairwiseIBDFile <- system.file("extdata", "PairwiseIBD.txt", package = "GRAB")
+GenoFile <- system.file("extdata", "simuPLINK.bed", package = "GRAB")
+OutputFile <- file.path(tempdir(), "resultSAGELD.txt")
+LongPheno <- data.table::fread(LongDataFile)
+
+# Step 1: fit null model using lme4
+nullmodel <- lme4::lmer(LongPheno ~ AGE + GENDER + (AGE|IID), data = LongPheno)
+
+# Step 2a: pre-calculate genotype distributions
+obj.SAGELD <- SAGELD.NullModel(
+  NullModel = nullmodel,
+  UsedMethod = "SAGELD",
+  PlinkFile = GenoFile,
+  SparseGRMFile = SparseGRMFile,
+  PairwiseIBDFile = PairwiseIBDFile,
+)
+
+# Step 2b: perform association tests
+GRAB.Marker(obj.SAGELD, GenoFile, OutputFile)
+
+head(data.table::fread(OutputFile))
+
 }

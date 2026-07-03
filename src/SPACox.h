@@ -153,10 +153,34 @@ public:
     return pval;
   }
   
-  double getMarkerPval(arma::vec t_GVec, 
-                       double t_MAF,
+  double getMarkerPval(arma::vec t_GVec,
+                       double t_MAF,        // ALT allele frequency (altFreq); may exceed 0.5
                        double& t_zScore)
   {
+    // --------------------------------------------------------------------------
+    // Restore ALT-allele orientation before forming the score statistic.
+    //
+    // The generic marker driver (mainMarkerInCPP -> imputeGenoAndFlip in UTIL.cpp)
+    // replaces GVec by 2 - GVec whenever altFreq > 0.5 (flip = true), but still
+    // forwards the ORIGINAL altFreq as t_MAF. If the flipped vector were combined
+    // with the centre 2*t_MAF used below, that centre (2*altFreq) would no longer
+    // equal the sample mean of GVec, which becomes 2*(1 - altFreq) after the flip.
+    // The variance VarS = varResid * sum((GVec - 2*altFreq)^2) would then be
+    // inflated by the factor 1 + N*(4*altFreq - 2)^2 / sum(adjGVec_correct^2),
+    // deflating |zScore| and yielding a systematically conservative, non
+    // flip-invariant two-sided p-value for altFreq > 0.5 markers.
+    //
+    // Undoing the flip here makes both the score S = sum(GVec % mresid) and its
+    // variance use the ALT-allele dosage, for which the centre 2*t_MAF equals the
+    // sample mean of GVec. The resulting |zScore| and p-value are flip-invariant
+    // and identical (up to print precision) to the standalone C++ implementation.
+    // The covariate-adjusted branch below is unaffected either way because its
+    // projection removes the genotype mean through the intercept column.
+    // --------------------------------------------------------------------------
+    if(t_MAF > 0.5){
+      t_GVec = 2 - t_GVec;
+    }
+
     double S = sum(t_GVec % m_mresid);
     arma::vec adjGVec = t_GVec - 2 * t_MAF;
     arma::vec adjGVec2 = pow(adjGVec, 2);

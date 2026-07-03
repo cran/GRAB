@@ -22,15 +22,15 @@ for the CGF grid.}
 }
 \value{
 A list of class \code{"SPACox_NULL_Model"} with elements:
-\describe{
-\item{N}{Number of subjects.}
-\item{mresid}{Martingale residuals (numeric vector).}
-\item{cumul}{CGF grid as a matrix with columns t, K0, K1, K2.}
-\item{tX}{Transpose of design matrix with intercept (p+1 x n).}
-\item{yVec}{Status/event indicator or residual-based response.}
-\item{X.invXX}{Projection helper: X \%\emph{\% solve(t(X) \%}\% X).}
-\item{subjData}{Character vector of subject IDs.}
-}
+  \describe{
+    \item{N}{Number of subjects.}
+    \item{mresid}{Martingale residuals (numeric vector).}
+    \item{cumul}{CGF grid as a matrix with columns t, K0, K1, K2.}
+    \item{tX}{Transpose of design matrix with intercept (p+1 x n).}
+    \item{yVec}{Status/event indicator or residual-based response.}
+    \item{X.invXX}{Projection helper: X \%*\% solve(t(X) \%*\% X).}
+    \item{subjData}{Character vector of subject IDs.}
+  }
 }
 \description{
 Computes martingale residuals (or uses provided residuals) and an empirical

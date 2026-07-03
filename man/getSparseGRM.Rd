@@ -30,16 +30,16 @@ This should be consistent to the input of \code{\link{getTempFilesFullGRM}}.
 Default is \code{tempdir()}.}
 
 \item{relatednessCutoff}{a cutoff for sparse GRM, only kinship coefficient greater
-than this cutoff will be retained in sparse GRM. \emph{(default=0.05)}}
+than this cutoff will be retained in sparse GRM. *(default=0.05)*}
 
 \item{minMafGRM}{Minimal value of MAF cutoff to select markers (from PLINK files)
-to make sparse GRM. \emph{(default=0.01)}}
+to make sparse GRM. *(default=0.01)*}
 
 \item{maxMissingGRM}{Maximal value of missing rate to select markers (from PLINK files)
-to make sparse GRM. \emph{(default=0.1)}}
+to make sparse GRM. *(default=0.1)*}
 
 \item{rm.tempFiles}{a logical value indicating if the temp files generated in
-\code{\link{getTempFilesFullGRM}} will be deleted. \emph{(default=FALSE)}}
+\code{\link{getTempFilesFullGRM}} will be deleted. *(default=FALSE)*}
 }
 \value{
 A character string containing a message with the path to the output file
@@ -48,7 +48,7 @@ where the sparse Genetic Relationship Matrix (SparseGRM) has been stored.
 \description{
 If the sample size in analysis is greater than 100,000, we recommend using sparse GRM
 (instead of dense GRM) to adjust for sample relatedness.
-This function is to use \code{GCTA} (\href{https://cnsgenomics.com/software/gcta/#Overview}{link})
+This function is to use \code{GCTA} ([link](https://cnsgenomics.com/software/gcta/#Overview))
 to make a \code{SparseGRMFile} to be passed to function \code{\link{GRAB.NullModel}}.
 This function can only support \code{Linux} and \code{PLINK} files as required by
 \code{GCTA} software. To make a \code{SparseGRMFile}, two steps are needed.
@@ -56,16 +56,17 @@ Please check \code{Details} section for more details.
 }
 \details{
 \itemize{
-\item \code{Step 1}: Run \code{\link{getTempFilesFullGRM}} to save temporary files
-to \code{tempDir}.
-\item \code{Step 2}: Run \code{getSparseGRM} to combine the temporary files to make
-a \code{SparseGRMFile} to be passed to function \code{\link{GRAB.NullModel}}.
+  \item \code{Step 1}: Run \code{\link{getTempFilesFullGRM}} to save temporary files
+    to \code{tempDir}.
+  \item \code{Step 2}: Run \code{getSparseGRM} to combine the temporary files to make
+    a \code{SparseGRMFile} to be passed to function \code{\link{GRAB.NullModel}}.
 }
 Users can customize parameters including \code{(minMafGRM, maxMissingGRM, nPartsGRM)},
 but functions \code{\link{getTempFilesFullGRM}} and \code{getSparseGRM} should use the same ones.
 Otherwise, package \code{GRAB} cannot accurately identify temporary files.
-}
-\section{The following shows a typical workflow for creating a sparse GRM:}{
+
+# The following shows a typical workflow for creating a sparse GRM:
+
 \code{# Input data (We recommend setting nPartsGRM=250 for UKBB with N=500K):}
 
 \code{GenoFile = system.file("extdata", "simuPLINK.bed", package = "GRAB")}
@@ -73,9 +74,9 @@ Otherwise, package \code{GRAB} cannot accurately identify temporary files.
 \code{PlinkPrefix = tools::file_path_sans_ext(GenoFile)}
 
 \code{nPartsGRM = 2}
-}
 
-\section{Step 1: We strongly recommend parallel computing in high performance clusters (HPC).}{
+# Step 1: We strongly recommend parallel computing in high performance clusters (HPC).
+
 \code{# For Linux, get the file path of gcta64 by which command:}
 
 \code{gcta64File <- system("which gcta64", intern = TRUE)}
@@ -88,13 +89,12 @@ Otherwise, package \code{GRAB} cannot accurately identify temporary files.
 
 \code{for(partParallel in 1:nPartsGRM) getTempFilesFullGRM(PlinkPrefix, nPartsGRM, }
 \code{partParallel, gcta64File)}
-}
 
-\section{Step 2: Combine files in Step 1 to make a SparseGRMFile}{
+# Step 2: Combine files in Step 1 to make a SparseGRMFile
+
 \code{tempDir = tempdir()}
 
 \code{SparseGRMFile = file.path(tempDir, "SparseGRM.txt")}
 
 \code{getSparseGRM(PlinkPrefix, nPartsGRM, SparseGRMFile)}
 }
-

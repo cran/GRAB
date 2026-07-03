@@ -26,17 +26,15 @@ The Cauchy Combination Test (CCT) transforms p-values using the inverse Cauchy
 distribution and combines them with specified weights. This method is particularly
 powerful because it:
 \itemize{
-\item Works under arbitrary dependency structures
-\item Provides exact analytical p-values (no simulation needed)
-\item Maintains good power properties across different scenarios
+  \item Works under arbitrary dependency structures
+  \item Provides exact analytical p-values (no simulation needed)
+  \item Maintains good power properties across different scenarios
 }
 
 \strong{Special Cases:}
-\itemize{
-\item If any p-value equals 0, returns 0 immediately
-\item P-values equal to 1 are adjusted to 0.999 with a warning
-\item Very small p-values (< 1e-16) receive special numerical treatment
-}
+- If any p-value equals 0, returns 0 immediately
+- P-values equal to 1 are adjusted to 0.999 with a warning
+- Very small p-values (< 1e-16) receive special numerical treatment
 }
 \examples{
 # Basic usage with equal weights

@@ -28,7 +28,7 @@ to multiple parts. For UK Biobank data analysis, it is recommended to set \code{
 for parallel computation.}
 
 \item{gcta64File}{a path to \code{GCTA} program. GCTA can be downloaded from
-\href{https://yanglab.westlake.edu.cn/software/gcta/#Download}{link}.}
+[link](https://yanglab.westlake.edu.cn/software/gcta/#Download).}
 
 \item{tempDir}{a path to store temp files to be passed to \code{\link{getSparseGRM}}.
 This should be consistent to the input of \code{\link{getSparseGRM}}. Default is \code{tempdir()}.}
@@ -38,16 +38,16 @@ Default is \code{NULL}, i.e. all subjects are retained in sparse GRM. If the num
 of subjects is less than 1,000, the GRM estimation might not be accurate.}
 
 \item{minMafGRM}{Minimal value of MAF cutoff to select markers (from PLINK files)
-to make sparse GRM. \emph{(default=0.01)}}
+to make sparse GRM. *(default=0.01)*}
 
 \item{maxMissingGRM}{Maximal value of missing rate to select markers (from PLINK files)
-to make sparse GRM. \emph{(default=0.1)}}
+to make sparse GRM. *(default=0.1)*}
 
 \item{threadNum}{Number of threads (CPUs) to use.}
 }
 \value{
 A character string message indicating the completion status and location
-of the temporary files.
+  of the temporary files.
 }
 \description{
 Make temporary files to be passed to function \code{\link{getSparseGRM}}.
@@ -55,9 +55,9 @@ We strongly suggest using parallel computing for different \code{partParallel}.
 }
 \details{
 \itemize{
-\item \code{Step 1}: Run \code{getTempFilesFullGRM} to get temporary files.
-\item \code{Step 2}: Run \code{\link{getSparseGRM}} to combine the temporary files
-to make a \code{SparseGRMFile} to be passed to \code{\link{GRAB.NullModel}}.
+  \item \code{Step 1}: Run \code{getTempFilesFullGRM} to get temporary files.
+  \item \code{Step 2}: Run \code{\link{getSparseGRM}} to combine the temporary files
+    to make a \code{SparseGRMFile} to be passed to \code{\link{GRAB.NullModel}}.
 }
 }
 \examples{

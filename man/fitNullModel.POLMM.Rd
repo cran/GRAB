@@ -38,8 +38,8 @@ If provided, sparse GRM is used; otherwise dense GRM is constructed.}
 }
 \value{
 An object of class \code{"POLMM_NULL_Model"} representing the
-initialized null model; state is stored in C++ and not intended for direct
-element-wise access from R.
+  initialized null model; state is stored in C++ and not intended for direct
+  element-wise access from R.
 }
 \description{
 Initializes the POLMM null model from an ordered categorical response and

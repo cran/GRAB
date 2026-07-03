@@ -7,52 +7,52 @@
 GRAB.WtCoxG()
 }
 \description{
-WtCoxG is a Cox-based association test method for time-to-event traits. It effectively
-addresses case ascertainment and rare variant analysis. By leveraging external minor
+WtCoxG is a Cox-based association test method for time-to-event traits. It effectively 
+addresses case ascertainment and rare variant analysis. By leveraging external minor 
 allele frequencies from public resources, WtCoxG can further boost statistical power.
 }
 \details{
 \strong{Additional Parameters for \code{GRAB.NullModel()}:}
 \itemize{
-\item \code{RefAfFile} (character, required): Reference allele frequency file path.
-File must contain columns: CHROM, POS, ID, REF, ALT, AF_ref, AN_ref
-\item \code{RefPrevalence} (numeric, required): Population-level disease prevalence
-for weighting. Must be in range (0, 0.5)
+  \item \code{RefAfFile} (character, required): Reference allele frequency file path.
+    File must contain columns: CHROM, POS, ID, REF, ALT, AF_ref, AN_ref
+  \item \code{RefPrevalence} (numeric, required): Population-level disease prevalence
+    for weighting. Must be in range (0, 0.5)
 }
 
 \strong{Additional Control Parameters for GRAB.NullModel()}:
 \itemize{
-\item \code{OutlierRatio} (numeric, default: 1.5): IQR multiplier for outlier detection
+  \item \code{OutlierRatio} (numeric, default: 1.5): IQR multiplier for outlier detection
 }
 
 \strong{Method-specific elements in the \code{WtCoxG_NULL_Model} object returned by \code{GRAB.NullModel()}:}:
 \itemize{
-\item \code{mresid}: Martingale residuals from weighted Cox model (numeric).
-\item \code{Cova}: Design matrix of covariates (matrix).
-\item \code{yVec}: Event indicator (numeric).
-\item \code{weight}: Observation weights based on reference prevalence (numeric).
-\item \code{RefPrevalence}: Reference population prevalence used for weighting (numeric).
-\item \code{outLierList}: List identifying outlier subjects for SPA adjustment.
-\item \code{mergeGenoInfo}: Data frame with batch effect QC results and external reference data.
+  \item \code{mresid}: Martingale residuals from weighted Cox model (numeric).
+  \item \code{Cova}: Design matrix of covariates (matrix).
+  \item \code{yVec}: Event indicator (numeric).
+  \item \code{weight}: Observation weights based on reference prevalence (numeric).
+  \item \code{RefPrevalence}: Reference population prevalence used for weighting (numeric).
+  \item \code{outLierList}: List identifying outlier subjects for SPA adjustment.
+  \item \code{mergeGenoInfo}: Data frame with batch effect QC results and external reference data.
 }
 
 \strong{Additional Control Parameters for GRAB.Marker()}:
 \itemize{
-\item \code{cutoff} (numeric, default: 0.1): Cutoff of batch effect test p-value for
-association testing. Variants with batch effect p-value below this cutoff
-will be excluded from association testing.
+  \item \code{cutoff} (numeric, default: 0.1): Cutoff of batch effect test p-value for
+    association testing. Variants with batch effect p-value below this cutoff
+    will be excluded from association testing.
 }
 
 \strong{Output file columns}:
 \describe{
-\item{Pheno}{Phenotype identifier (for multi-trait analysis).}
-\item{Marker}{Marker identifier (rsID or CHR:POS:REF:ALT).}
-\item{Info}{Marker information in format CHR:POS:REF:ALT.}
-\item{AltFreq}{Alternative allele frequency in the sample.}
-\item{AltCounts}{Total count of alternative alleles.}
-\item{MissingRate}{Proportion of missing genotypes.}
-\item{Pvalue}{P-value from the score test.}
-\item{zScore}{Z-score from the score test.}
+  \item{Pheno}{Phenotype identifier (for multi-trait analysis).}
+  \item{Marker}{Marker identifier (rsID or CHR:POS:REF:ALT).}
+  \item{Info}{Marker information in format CHR:POS:REF:ALT.}
+  \item{AltFreq}{Alternative allele frequency in the sample.}
+  \item{AltCounts}{Total count of alternative alleles.}
+  \item{MissingRate}{Proportion of missing genotypes.}
+  \item{Pvalue}{P-value from the score test.}
+  \item{zScore}{Z-score from the score test.}
 }
 }
 \examples{
@@ -83,6 +83,6 @@ head(data.table::fread(OutputFile))
 
 }
 \references{
-Li et al. (2025). Applying weighted Cox regression to genome-wide association studies of
+Li et al. (2025). Applying weighted Cox regression to genome-wide association studies of 
 time-to-event phenotypes. \doi{10.1038/s43588-025-00864-z}
 }

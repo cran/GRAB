@@ -418,6 +418,20 @@ GRAB.Region <- function(
 }
 
 
+# Combine cell-level region p-values via the Cauchy combination test (CCT),
+# dropping NA cells first. NA cells come from degenerate annotation x MaxMAF
+# combinations (an annotation category with no qualifying variant), which carry no
+# information. Returns NA when every cell is NA, so GRAB.Region() reports the region
+# instead of aborting the whole run.
+combineRegionPval <- function(pvals) {
+  pvals <- pvals[!is.na(pvals)]
+  if (length(pvals) == 0) {
+    return(NA_real_)
+  }
+  CCT(pvals)
+}
+
+
 # Internal function to analyze one region: read genotypes, filter variants,
 # compute SKAT/SKAT-O/Burden tests, apply Cauchy combination, and write results.
 processOneRegion <- function(
@@ -635,10 +649,19 @@ processOneRegion <- function(
     }
   }
 
-  # Cauchy combination test
-  pval.Cauchy.SKATO <- CCT(pval.Region$pval.SKATO)          # numeric
-  pval.Cauchy.SKAT <- CCT(pval.Region$pval.SKAT)            # numeric
-  pval.Cauchy.Burden <- CCT(pval.Region$pval.Burden)        # numeric
+  # Cauchy combination across annotation x MaxMAF cells. Degenerate cells (e.g. an
+  # annotation category with no qualifying variant) yield NA p-values that carry no
+  # information; drop them before combining rather than aborting the run.
+  nNA <- sum(is.na(pval.Region$pval.SKATO))                 # integer
+  if (nNA > 0) {
+    .message(
+      "Region %s: %d of %d annotation x MaxMAF cells produced no valid test (e.g. empty annotation category); excluded from Cauchy combination.",
+      regionID, nNA, nrow(pval.Region)
+    )
+  }
+  pval.Cauchy.SKATO <- combineRegionPval(pval.Region$pval.SKATO)   # numeric
+  pval.Cauchy.SKAT <- combineRegionPval(pval.Region$pval.SKAT)     # numeric
+  pval.Cauchy.Burden <- combineRegionPval(pval.Region$pval.Burden) # numeric
 
   pval.Region <- rbind.data.frame(                          # data.frame
     pval.Region,

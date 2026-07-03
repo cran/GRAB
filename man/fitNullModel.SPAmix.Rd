@@ -28,15 +28,15 @@ single comma-separated string of PC column names (e.g.
 }
 \value{
 A list of class \code{"SPAmix_NULL_Model"} containing:
-\describe{
-\item{resid}{Residual matrix (n x k)}
-\item{N}{Number of subjects}
-\item{yVec}{Response vector (event indicator for survival models)}
-\item{PCs}{Selected principal component columns}
-\item{nPheno}{Number of phenotypes (columns of residuals)}
-\item{outLierList}{List of per-phenotype indices (0-based) and residual
-subsets for outlier/non-outlier strata}
-}
+  \describe{
+    \item{resid}{Residual matrix (n x k)}
+    \item{N}{Number of subjects}
+    \item{yVec}{Response vector (event indicator for survival models)}
+    \item{PCs}{Selected principal component columns}
+    \item{nPheno}{Number of phenotypes (columns of residuals)}
+    \item{outLierList}{List of per-phenotype indices (0-based) and residual
+      subsets for outlier/non-outlier strata}
+  }
 }
 \description{
 Fit a SPAmix null model from a survival response (\code{Surv}) with
@@ -49,6 +49,6 @@ If \code{response} is \code{Surv}, a Cox model is fit and martingale
 residuals are used. If \code{response} is \code{Residual}, its values are
 used directly. Outliers per phenotype are defined by
 \code{[Q1 - r*IQR, Q3 + r*IQR]} with \code{r = OutlierRatio}; if none are
-found, \code{r} is iteratively reduced by 20\% until at least one appears.
+found, \code{r} is iteratively reduced by 20% until at least one appears.
 }
 \keyword{internal}

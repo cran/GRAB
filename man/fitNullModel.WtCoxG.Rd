@@ -45,18 +45,18 @@ sampling markers for QC.}
 }
 \value{
 A list of class \code{"WtCoxG_NULL_Model"} with elements:
-\describe{
-\item{mresid}{Martingale residuals from weighted Cox model.}
-\item{Cova}{Design matrix used in the null model (n x p).}
-\item{yVec}{Event indicator extracted from \code{Surv}.}
-\item{weight}{Observation weights derived from reference prevalence.}
-\item{RefPrevalence}{Reference prevalence used to define weights.}
-\item{N}{Number of subjects.}
-\item{outLierList}{Lists indices (0-based) and residual subsets for SPA.}
-\item{control}{Copy of control options used.}
-\item{mergeGenoInfo}{QC-derived marker metadata for batch-effect testing (if run).}
-\item{subjData}{Character vector of subject IDs.}
-}
+  \describe{
+    \item{mresid}{Martingale residuals from weighted Cox model.}
+    \item{Cova}{Design matrix used in the null model (n x p).}
+    \item{yVec}{Event indicator extracted from \code{Surv}.}
+    \item{weight}{Observation weights derived from reference prevalence.}
+    \item{RefPrevalence}{Reference prevalence used to define weights.}
+    \item{N}{Number of subjects.}
+    \item{outLierList}{Lists indices (0-based) and residual subsets for SPA.}
+    \item{control}{Copy of control options used.}
+    \item{mergeGenoInfo}{QC-derived marker metadata for batch-effect testing (if run).}
+    \item{subjData}{Character vector of subject IDs.}
+  }
 }
 \description{
 Fits a weighted Cox model using case/control weighting based on reference

@@ -7,10 +7,10 @@
 GRAB.SPAGRM()
 }
 \description{
-SPAGRM is a scalable and accurate framework for retrospective association tests.
-It treats genetic loci as random vectors and uses a precise approximation of their
-joint distribution. This approach enables SPAGRM to handle any type of complex trait,
-including longitudinal and unbalanced phenotypes. SPAGRM extends SPACox to support
+SPAGRM is a scalable and accurate framework for retrospective association tests. 
+It treats genetic loci as random vectors and uses a precise approximation of their 
+joint distribution. This approach enables SPAGRM to handle any type of complex trait, 
+including longitudinal and unbalanced phenotypes. SPAGRM extends SPACox to support 
 sample relatedness.
 }
 \details{
@@ -19,20 +19,20 @@ on preparing a SPAGRM_NULL_Model object required for GRAB.Marker().
 
 \strong{Additional Control Parameters for GRAB.Marker()}:
 \itemize{
-\item \code{zeta} (numeric, default: 0): SPA moment approximation parameter.
-\item \code{tol} (numeric, default: 1e-5): Numerical tolerance for SPA convergence.
+  \item \code{zeta} (numeric, default: 0): SPA moment approximation parameter.
+  \item \code{tol} (numeric, default: 1e-5): Numerical tolerance for SPA convergence.
 }
 
 \strong{Marker-level results} (\code{OutputFile}) columns:
 \describe{
-\item{Marker}{Marker identifier (rsID or CHR:POS:REF:ALT).}
-\item{Info}{Marker information in format CHR:POS:REF:ALT.}
-\item{AltFreq}{Alternative allele frequency in the sample.}
-\item{AltCounts}{Total count of alternative alleles.}
-\item{MissingRate}{Proportion of missing genotypes.}
-\item{zScore}{Z-score from the score test.}
-\item{Pvalue}{P-value from the score test.}
-\item{hwepval}{Hardy-Weinberg equilibrium p-value.}
+  \item{Marker}{Marker identifier (rsID or CHR:POS:REF:ALT).}
+  \item{Info}{Marker information in format CHR:POS:REF:ALT.}
+  \item{AltFreq}{Alternative allele frequency in the sample.}
+  \item{AltCounts}{Total count of alternative alleles.}
+  \item{MissingRate}{Proportion of missing genotypes.}
+  \item{zScore}{Z-score from the score test.}
+  \item{Pvalue}{P-value from the score test.}
+  \item{hwepval}{Hardy-Weinberg equilibrium p-value.}
 }
 }
 \examples{
@@ -57,6 +57,6 @@ head(data.table::fread(OutputFile))
 
 }
 \references{
-Xu et al. (2025). SPAGRM: effectively controlling for sample relatedness in large-scale
+Xu et al. (2025). SPAGRM: effectively controlling for sample relatedness in large-scale 
 genome-wide association studies of longitudinal traits. \doi{10.1038/s41467-025-56669-1}
 }

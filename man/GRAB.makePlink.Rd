@@ -42,21 +42,17 @@ for use with PLINK software and other genetic analysis tools.
 }
 \details{
 \strong{Genotype Encoding:}
-\itemize{
-\item 0, 1, 2 → copies of minor allele
-\item -9 → missing genotype (coded as "00" in PED)
-\item A1="G", A2="A": 0→"GG", 1→"AG", 2→"AA", -9→"00"
-}
+- 0, 1, 2 → copies of minor allele
+- -9 → missing genotype (coded as "00" in PED)
+- A1="G", A2="A": 0→"GG", 1→"AG", 2→"AA", -9→"00"
 
 \strong{Output Files:}
-\itemize{
-\item \code{.ped}: Pedigree file with genotype data
-\item \code{.map}: Marker map file with positions
-}
+- `.ped`: Pedigree file with genotype data
+- `.map`: Marker map file with positions
 
 \strong{Downstream Processing:}
-
-\if{html}{\out{<div class="sourceCode bash">}}\preformatted{# Convert to binary format
+```bash
+# Convert to binary format
 plink --file prefix --make-bed --out prefix
 
 # Convert to raw format
@@ -67,7 +63,7 @@ plink2 --bfile prefix --export bgen-1.2 bits=8 ref-first --out prefix_bgen
 
 # Create BGEN index
 bgenix -g prefix_bgen.bgen --index
-}\if{html}{\out{</div>}}
+```
 }
 \examples{
 ### Step 1: simulate a numeric genotype matrix

@@ -306,8 +306,16 @@ public:
       // arma::vec z = X_new * beta + inv(W) * (y - mu);
       // arma::vec beta_new = inv(X_new.t() * W * X_new) * X_new.t() * W * z;
       
-      arma::vec W = mu % (1 - mu);
-      arma::vec z = X_new * beta + (y - mu) / W;
+      // Clamp mu away from {0, 1} for the IRLS weights only, matching the
+      // standalone C++ implementation. Under near-perfect separation the
+      // unclamped weight W = mu*(1-mu) underflows to 0, so (y-mu)/W becomes
+      // Inf, W % z becomes 0*Inf = NaN, and inv() then propagates NaN into
+      // beta and the returned per-individual allele-frequency estimate. The
+      // final MAFest below still uses the unclamped mu, exactly as in the
+      // standalone C++.
+      arma::vec mu_w = arma::clamp(mu, 1e-10, 1 - 1e-10);
+      arma::vec W = mu_w % (1 - mu_w);
+      arma::vec z = X_new * beta + (y - mu_w) / W;
       
       for(int j = 0; j < p+1; j++){
         WX_new.col(j) = X_new.col(j) % W;
@@ -427,7 +435,18 @@ public:
       
       double S = sum(t_GVec.elem(posValue) % resid);
       double VarS = sum(resid2 % GVarVec.elem(posValue));
-      
+
+      // Guard against a degenerate score variance (VarS <= 0): all
+      // per-individual weights 2*AF*(1-AF) or all residuals vanish. Without
+      // this, zScore = (S-S_mean)/sqrt(VarS) becomes +/-Inf or NaN, fails the
+      // |zScore| < SPA_Cutoff test, and propagates NaN through the SPA branch.
+      // Match the standalone C++: report a non-significant p-value of 1.
+      if(VarS <= 0){
+        m_zScoreVec.at(i) = 0;
+        m_pvalVec.at(i) = 1;
+        continue;
+      }
+
       // updated on 2023-04-23
       double S_mean = 2 * sum(resid % AFVec.elem(posValue)); // NOTE: I think S_mean is somewhat weird and should be checked later (2023-04-22)
       double zScore = (S-S_mean) / sqrt(VarS);

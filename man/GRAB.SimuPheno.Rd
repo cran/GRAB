@@ -18,10 +18,10 @@ GRAB.SimuPheno(
 
 \item{control}{List of simulation parameters specific to each trait type:
 \describe{
-\item{pCase}{Proportion of cases (binary traits).}
-\item{sdError}{Error term standard deviation (quantitative traits).}
-\item{pEachGroup}{Group proportions (ordinal traits).}
-\item{eventRate}{Event rate (time-to-event traits).}
+  \item{pCase}{Proportion of cases (binary traits).}
+  \item{sdError}{Error term standard deviation (quantitative traits).}
+  \item{pEachGroup}{Group proportions (ordinal traits).}
+  \item{eventRate}{Event rate (time-to-event traits).}
 }}
 
 \item{seed}{Random seed for reproducibility (optional).}
@@ -29,10 +29,10 @@ GRAB.SimuPheno(
 \value{
 Simulated phenotype vector or data frame:
 \describe{
-\item{quantitative}{Numeric vector of continuous values.}
-\item{binary}{Numeric vector of 0/1 values.}
-\item{ordinal}{Numeric vector of categorical levels.}
-\item{time-to-event}{Data frame with SurvTime and SurvEvent columns.}
+  \item{quantitative}{Numeric vector of continuous values.}
+  \item{binary}{Numeric vector of 0/1 values.}
+  \item{ordinal}{Numeric vector of categorical levels.}
+  \item{time-to-event}{Data frame with SurvTime and SurvEvent columns.}
 }
 }
 \description{
@@ -41,12 +41,10 @@ time-to-event) from linear predictors using appropriate link functions.
 }
 \details{
 \strong{Trait Type Details:}
-\itemize{
-\item \strong{Quantitative}: Y = eta + error, where error ~ N(0, sdError²)
-\item \strong{Binary}: Logistic model with specified case proportion
-\item \strong{Ordinal}: Proportional odds model with specified group proportions
-\item \strong{Time-to-event}: Weibull survival model with specified event rate
-}
+- \strong{Quantitative}: Y = eta + error, where error ~ N(0, sdError²)
+- \strong{Binary}: Logistic model with specified case proportion
+- \strong{Ordinal}: Proportional odds model with specified group proportions
+- \strong{Time-to-event}: Weibull survival model with specified event rate
 
 For more details, see: https://wenjianbi.github.io/grab.github.io/docs/simulation_phenotype.html
 }

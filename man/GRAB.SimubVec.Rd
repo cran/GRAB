@@ -19,8 +19,8 @@ See \code{\link{GRAB.SimuGMat}} for pedigree details.}
 \value{
 Data frame with columns:
 \describe{
-\item{IID}{Subject identifiers.}
-\item{bVec}{Random effect values following appropriate correlation structure.}
+  \item{IID}{Subject identifiers.}
+  \item{bVec}{Random effect values following appropriate correlation structure.}
 }
 }
 \description{

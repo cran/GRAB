@@ -117,10 +117,13 @@ SPAGRM.NullModel <- function(
   if (is.data.frame(ResidMatFile)) {
     ResidMat <- ResidMatFile
   } else {
-    ResidMat <- data.table::fread(ResidMatFile)
+    ResidMat <- data.table::fread(ResidMatFile, colClasses = list(character = "SubjID"))
   }
-  SparseGRM <- data.table::fread(SparseGRMFile)
-  PairwiseIBD <- data.table::fread(PairwiseIBDFile)
+  # colClasses forces the ID columns to character at read time so all-digit IDs
+  # retain leading zeros. The as.character() calls below cannot recover zeros
+  # once fread has coerced a column to integer; they now act as no-ops.
+  SparseGRM <- data.table::fread(SparseGRMFile, colClasses = list(character = c("ID1", "ID2")))
+  PairwiseIBD <- data.table::fread(PairwiseIBDFile, colClasses = list(character = c("ID1", "ID2")))
 
   # Ensure all ID columns are character type for consistent matching
   ResidMat$SubjID <- as.character(ResidMat$SubjID)
@@ -374,7 +377,11 @@ SPAGRM.NullModel <- function(
           R_GRM_R_TwoSubjOutlier <- R_GRM_R_TwoSubjOutlier + R_GRM_R_TwoSubjOutlier.temp
 
           Rho.temp <- tempIBD$pa + 0.5 * tempIBD$pb
-          midterm <- sqrt(Rho.temp^2 - tempIBD$pa)
+          # Clamp the radicand at 0 to match the standalone C++. For IBD triples
+          # violating Rho^2 >= pa (possible with externally supplied or noisy
+          # IBD), the unguarded sqrt() returns NaN, which propagates through the
+          # two-subject-family MGF into a NaN SPA p-value.
+          midterm <- sqrt(pmax(Rho.temp^2 - tempIBD$pa, 0))
 
           TwoSubj_list[[TwofamID.index]] <- list(
             Resid = Resid.temp,

@@ -20,7 +20,7 @@ GRAB.NullModel(
 }
 \arguments{
 \item{formula}{(formula) Formula with response variable(s) on the left and covariates
-on the right. Do not include an intercept (added automatically).
+on the right. Do not include an intercept (added automatically). 
 For SPAmix with traitType "Residual", multiple response variables (separated by "+") are supported.}
 
 \item{data}{(data.frame) Data frame containing response variables and covariates in the formula.
@@ -34,32 +34,32 @@ Exactly one of \code{subjIDcol} or \code{subjData} must be provided.}
 
 \item{method}{(character) Supported methods:
 \itemize{
-\item "POLMM": Ordinal traits. See \code{?\link{GRAB.POLMM}}.
-\item "SPACox": Time-to-event or Residual. See \code{?\link{GRAB.SPACox}}.
-\item "SPAmix": Time-to-event or Residual. See \code{?\link{GRAB.SPAmix}}.
-\item "WtCoxG": Time-to-event traits. See \code{?\link{GRAB.WtCoxG}}.
+  \item "POLMM": Ordinal traits. See \code{?\link{GRAB.POLMM}}.
+  \item "SPACox": Time-to-event or Residual. See \code{?\link{GRAB.SPACox}}.
+  \item "SPAmix": Time-to-event or Residual. See \code{?\link{GRAB.SPAmix}}.
+  \item "WtCoxG": Time-to-event traits. See \code{?\link{GRAB.WtCoxG}}.
 }}
 
 \item{traitType}{(character) Supported: "ordinal", "time-to-event", and "Residual".}
 
 \item{GenoFile}{(character or NULL) Path to genotype file. Supported formats determined by extension:
 \itemize{
-\item PLINK: "prefix.bed"
-\item BGEN: "prefix.bgen" (version 1.2 with 8-bit compression)
+  \item PLINK: "prefix.bed"
+  \item BGEN: "prefix.bgen" (version 1.2 with 8-bit compression)
 }}
 
 \item{GenoFileIndex}{(character vector or NULL) Associated files for the genotype file (auto-detected if NULL):
 \itemize{
-\item PLINK: c("prefix.bim", "prefix.fam")
-\item BGEN: c("prefix.bgen.bgi", "prefix.sample") or c("prefix.bgen.bgi")
+  \item PLINK: c("prefix.bim", "prefix.fam")
+  \item BGEN: c("prefix.bgen.bgi", "prefix.sample") or c("prefix.bgen.bgi")
 }}
 
-\item{SparseGRMFile}{(character or NULL) Path to a sparse GRM file.
+\item{SparseGRMFile}{(character or NULL) Path to a sparse GRM file. 
 The file must be whitespace-delimited with three columns in the order:
 \itemize{
-\item Column 1: Subject ID 1
-\item Column 2: Subject ID 2
-\item Column 3: Genetic correlation between the two subjects
+  \item Column 1: Subject ID 1
+  \item Column 2: Subject ID 2
+  \item Column 3: Genetic correlation between the two subjects
 }
 See \code{system.file("extdata", "SparseGRM.txt", package = "GRAB")} for an example.
 See \code{?\link{getSparseGRM}} for details on generating a sparse GRM.}
@@ -72,12 +72,12 @@ See the corresponding method documentation for available options and defaults.}
 \value{
 An S3 object with class "\{method\}_NULL_Model". All returned objects contain the following elements:
 \describe{
-\item{N}{Sample size (integer).}
-\item{subjData}{Character vector of subject IDs included in analysis.}
-\item{Call}{Original function call.}
-\item{sessionInfo}{R session and package information.}
-\item{time}{Analysis completion timestamp (character).}
-\item{control}{List of control parameters used in fitting.}
+  \item{N}{Sample size (integer).}
+  \item{subjData}{Character vector of subject IDs included in analysis.}
+  \item{Call}{Original function call.}
+  \item{sessionInfo}{R session and package information.}
+  \item{time}{Analysis completion timestamp (character).}
+  \item{control}{List of control parameters used in fitting.}
 }
 
 This object serves as input for \code{\link{GRAB.Marker}} or \code{\link{GRAB.Region}}.
@@ -85,7 +85,7 @@ This object serves as input for \code{\link{GRAB.Marker}} or \code{\link{GRAB.Re
 See method-specific documentation for additional elements included in the returned object.
 }
 \description{
-GRAB performs two-step genetic association testing. This function
-implements the first step: fitting a null model and preparing the dataset required for
+GRAB performs two-step genetic association testing. This function 
+implements the first step: fitting a null model and preparing the dataset required for 
 downstream marker-level (\code{GRAB.Marker}) and region-level (\code{GRAB.Region}) analyses.
 }

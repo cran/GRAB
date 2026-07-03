@@ -20,8 +20,7 @@ SAGELD.NullModel(
 
 \item{UsedMethod}{Character; either \code{"SAGELD"} (default) or \code{"GALLOP"}.}
 
-\item{PlinkFile}{Character. PLINK prefix (without extension) used to sample
-common markers for estimating the lambda parameter.}
+\item{PlinkFile}{Character. Path to PLINK .bed file.}
 
 \item{SparseGRMFile}{Character. Path to sparse GRM file produced by
 \code{getSparseGRM()}.}
@@ -37,48 +36,48 @@ association when estimating \eqn{\lambda}.}
 }
 \value{
 A list of class \code{"SAGELD_NULL_Model"} with elements:
-\describe{
-\item{subjData}{Character vector of subject IDs.}
-\item{N}{Number of subjects.}
-\item{Method}{Method label: \code{"SAGELD"} or \code{"GALLOP"}.}
-\item{XTs}{Per-subject sums for crossprod(X, G) terms.}
-\item{SS}{Per-subject Rot \%*\% Si matrices for random effects.}
-\item{AtS}{Per-subject cross-products used in variance assembly.}
-\item{Q}{Fixed-effect precision matrix (p x p).}
-\item{A21}{Block matrix linking random and fixed effects.}
-\item{TTs}{Per-subject sums for crossprod(G).}
-\item{Tys}{Per-subject sums for crossprod(G, y).}
-\item{sol}{Fixed-effects solution vector.}
-\item{blups}{Random-effects BLUPs per subject.}
-\item{sig}{Scale parameter extracted from VarCorr.}
-\item{Resid}{Residuals used in SAGELD testing.}
-\item{Resid_G}{Genetic component residuals.}
-\item{Resid_GxE}{GxE component residuals.}
-\item{Resid_E}{Environmental component residuals.}
-\item{Resid.unrelated.outliers}{Residuals for unrelated outlier subjects.}
-\item{Resid.unrelated.outliers_G}{G residuals for unrelated outliers.}
-\item{Resid.unrelated.outliers_GxE}{GxE residuals for unrelated outliers.}
-\item{R_GRM_R}{Quadratic form Resid' * GRM * Resid (all subjects).}
-\item{R_GRM_R_G}{Quadratic form for G residuals.}
-\item{R_GRM_R_GxE}{Quadratic form for GxE residuals.}
-\item{R_GRM_R_G_GxE}{Cross-term quadratic form between G and GxE.}
-\item{R_GRM_R_E}{Quadratic form for E residuals.}
-\item{R_GRM_R_TwoSubjOutlier}{Contribution from two-subject outlier families.}
-\item{R_GRM_R_TwoSubjOutlier_G}{Two-subject outlier contribution (G).}
-\item{R_GRM_R_TwoSubjOutlier_GxE}{Two-subject outlier contribution (GxE).}
-\item{R_GRM_R_TwoSubjOutlier_G_GxE}{Two-subject outlier cross-term (G,GxE).}
-\item{sum_R_nonOutlier}{Sum of residuals for non-outlier unrelated subjects.}
-\item{sum_R_nonOutlier_G}{Sum of G residuals for non-outlier unrelated subjects.}
-\item{sum_R_nonOutlier_GxE}{Sum of GxE residuals for non-outlier unrelated subjects.}
-\item{R_GRM_R_nonOutlier}{Quadratic form for non-outlier unrelated subjects.}
-\item{R_GRM_R_nonOutlier_G}{Quadratic form for G (non-outlier unrelated).}
-\item{R_GRM_R_nonOutlier_GxE}{Quadratic form for GxE (non-outlier unrelated).}
-\item{R_GRM_R_nonOutlier_G_GxE}{Cross-term for G/GxE (non-outlier unrelated).}
-\item{TwoSubj_list}{Per-family lists for N=2 outlier families.}
-\item{ThreeSubj_list}{CLT and standardized scores for larger families.}
-\item{MAF_interval}{MAF breakpoints used in CLT construction.}
-\item{zScoreE_cutoff}{Z-score threshold for E used in screening.}
-}
+  \describe{
+    \item{subjData}{Character vector of subject IDs.}
+    \item{N}{Number of subjects.}
+    \item{Method}{Method label: \code{"SAGELD"} or \code{"GALLOP"}.}
+    \item{XTs}{Per-subject sums for crossprod(X, G) terms.}
+    \item{SS}{Per-subject Rot \%*\% Si matrices for random effects.}
+    \item{AtS}{Per-subject cross-products used in variance assembly.}
+    \item{Q}{Fixed-effect precision matrix (p x p).}
+    \item{A21}{Block matrix linking random and fixed effects.}
+    \item{TTs}{Per-subject sums for crossprod(G).}
+    \item{Tys}{Per-subject sums for crossprod(G, y).}
+    \item{sol}{Fixed-effects solution vector.}
+    \item{blups}{Random-effects BLUPs per subject.}
+    \item{sig}{Scale parameter extracted from VarCorr.}
+    \item{Resid}{Residuals used in SAGELD testing.}
+    \item{Resid_G}{Genetic component residuals.}
+    \item{Resid_GxE}{GxE component residuals.}
+    \item{Resid_E}{Environmental component residuals.}
+    \item{Resid.unrelated.outliers}{Residuals for unrelated outlier subjects.}
+    \item{Resid.unrelated.outliers_G}{G residuals for unrelated outliers.}
+    \item{Resid.unrelated.outliers_GxE}{GxE residuals for unrelated outliers.}
+    \item{R_GRM_R}{Quadratic form Resid' * GRM * Resid (all subjects).}
+    \item{R_GRM_R_G}{Quadratic form for G residuals.}
+    \item{R_GRM_R_GxE}{Quadratic form for GxE residuals.}
+    \item{R_GRM_R_G_GxE}{Cross-term quadratic form between G and GxE.}
+    \item{R_GRM_R_E}{Quadratic form for E residuals.}
+    \item{R_GRM_R_TwoSubjOutlier}{Contribution from two-subject outlier families.}
+    \item{R_GRM_R_TwoSubjOutlier_G}{Two-subject outlier contribution (G).}
+    \item{R_GRM_R_TwoSubjOutlier_GxE}{Two-subject outlier contribution (GxE).}
+    \item{R_GRM_R_TwoSubjOutlier_G_GxE}{Two-subject outlier cross-term (G,GxE).}
+    \item{sum_R_nonOutlier}{Sum of residuals for non-outlier unrelated subjects.}
+    \item{sum_R_nonOutlier_G}{Sum of G residuals for non-outlier unrelated subjects.}
+    \item{sum_R_nonOutlier_GxE}{Sum of GxE residuals for non-outlier unrelated subjects.}
+    \item{R_GRM_R_nonOutlier}{Quadratic form for non-outlier unrelated subjects.}
+    \item{R_GRM_R_nonOutlier_G}{Quadratic form for G (non-outlier unrelated).}
+    \item{R_GRM_R_nonOutlier_GxE}{Quadratic form for GxE (non-outlier unrelated).}
+    \item{R_GRM_R_nonOutlier_G_GxE}{Cross-term for G/GxE (non-outlier unrelated).}
+    \item{TwoSubj_list}{Per-family lists for N=2 outlier families.}
+    \item{ThreeSubj_list}{CLT and standardized scores for larger families.}
+    \item{MAF_interval}{MAF breakpoints used in CLT construction.}
+    \item{zScoreE_cutoff}{Z-score threshold for E used in screening.}
+  }
 }
 \description{
 Builds the SAGELD (or GALLOP) null model from a fitted mixed-effects model
